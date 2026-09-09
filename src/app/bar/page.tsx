@@ -39,7 +39,7 @@ export default async function BarPage() {
           <div className="overflow-x-auto rounded-xl border border-gold/35 bg-cream-bright/[0.04]">
             <table className="w-full min-w-[640px] border-collapse text-[14px]">
               <thead>
-                <tr className="bg-gold/[0.14] font-mono text-[9px] tracking-[0.14em] text-gold-light">
+                <tr className="bg-gold/[0.14] font-mono text-[10.5px] tracking-[0.14em] text-gold-light">
                   <th scope="col" className="px-[18px] py-[14px] text-left font-normal">SPIRIT</th>
                   {cols.map((c) => <th key={c} scope="col" className="px-2 py-[14px] text-right font-normal">{c}</th>)}
                 </tr>

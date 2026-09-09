@@ -80,11 +80,11 @@ export function Header() {
             />
             <span className="flex flex-col leading-none">
               <span className="brand-name display text-[17px] tracking-[0.16em] text-navy transition-colors duration-[450ms]">SWAD SATKAR</span>
-              <span className="mt-[5px] font-mono text-[8.5px] tracking-[0.3em] text-gold-ink">THAKALI · THAI · BAR</span>
+              <span className="mt-[5px] font-mono text-[10px] tracking-[0.26em] text-gold-ink">THAKALI · THAI · BAR</span>
             </span>
           </Link>
           <div className="flex-1" />
-          <nav aria-label="Primary" className="hidden items-center gap-[clamp(10px,1.6vw,24px)] min-[900px]:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-[clamp(10px,1.6vw,24px)] min-[1080px]:flex">
             {NAV.map((item) => {
               const active = isHome ? (inView ? inView === item.href : item.href === "/") : pathname === item.href;
               return (
@@ -115,7 +115,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="site-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="menu-toggle flex h-[46px] w-[46px] flex-col items-center justify-center gap-[5px] rounded-full border border-navy/25 bg-transparent transition-colors duration-[450ms] min-[900px]:hidden"
+            className="menu-toggle flex h-[46px] w-[46px] flex-col items-center justify-center gap-[5px] rounded-full border border-navy/25 bg-transparent transition-colors duration-[450ms] min-[1080px]:hidden"
           >
             <span className={cn("block h-[1.5px] w-5 bg-navy transition-transform", open && "translate-y-[6.5px] rotate-45")} />
             <span className={cn("block h-[1.5px] w-5 bg-navy transition-opacity", open && "opacity-0")} />
@@ -123,7 +123,7 @@ export function Header() {
           </button>
         </div>
         {open && (
-          <nav id="site-menu" aria-label="Primary" className="flex flex-col gap-[2px] border-t border-navy/[0.12] bg-cream px-5 pb-[26px] pt-[14px] [animation:ssRise_.35s_ease_both] min-[900px]:hidden">
+          <nav id="site-menu" aria-label="Primary" className="flex flex-col gap-[2px] border-t border-navy/[0.12] bg-cream px-5 pb-[26px] pt-[14px] [animation:ssRise_.35s_ease_both] min-[1080px]:hidden">
             {NAV.map((item) => (
               <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className="display border-b border-navy/[0.07] px-1 py-[14px] text-[20px]">
                 {item.label === "Contact" ? "Contact / Visit Us" : item.label}

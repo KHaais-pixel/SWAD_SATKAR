@@ -23,7 +23,7 @@ export function Footer() {
         <div>
           <Image src={photos.plaqueSmall.src} alt="" width={400} height={296} sizes="170px" className="h-auto w-[170px] rounded-[6px]" />
           <p className="display mt-[18px] text-[19px] tracking-[0.16em]">SWAD SATKAR</p>
-          <p className="mt-2 font-mono text-[9.5px] tracking-[0.3em] text-gold-light">THAKALI • THAI • BAR</p>
+          <p className="mt-2 font-mono text-[10.5px] tracking-[0.3em] text-gold-light">THAKALI • THAI • BAR</p>
           <p className="accent-italic mt-4 text-[17px] text-cream-bright/70">{site.cardTagline}</p>
         </div>
         <nav aria-label="Footer">
@@ -31,7 +31,7 @@ export function Footer() {
           <ul className="flex flex-col gap-[11px]">
             {LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="text-[14.5px] text-cream-bright/[0.82] hover:text-gold-light">
+                <Link href={l.href} className="tap text-[14.5px] text-cream-bright/[0.82] hover:text-gold-light">
                   {l.label}
                 </Link>
               </li>
@@ -78,8 +78,8 @@ export function Footer() {
       </div>
       <div className="border-t border-cream-bright/[0.12]">
         <div className="wrap-wide flex flex-wrap items-center justify-between gap-3 py-5">
-          <p className="font-mono text-[9.5px] tracking-[0.18em] text-cream-bright/[0.62]">© SWAD SATKAR · ASIAN MIX CUISINE</p>
-          <Link href="/staff" className="font-mono text-[9.5px] tracking-[0.18em] text-cream-bright/[0.62] hover:text-gold-light">
+          <p className="font-mono text-[10.5px] tracking-[0.18em] text-cream-bright/[0.62]">© SWAD SATKAR · ASIAN MIX CUISINE</p>
+          <Link href="/staff" className="font-mono text-[10.5px] tracking-[0.18em] text-cream-bright/[0.62] hover:text-gold-light">
             STAFF PANEL →
           </Link>
         </div>

@@ -168,7 +168,7 @@
 }
 @utility mono-tag {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -260,10 +260,17 @@
 }
 @utility field-label {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold-ink);
+}
+
+/* Nothing you tap is smaller than 24px. The link keeps its size and its
+   place; the hit area grows around it, which is what a thumb actually needs. */
+@utility tap {
+  display: inline-block;
+  padding-block: max(0px, calc((24px - 1em * 1.5) / 2));
 }
 
 /* image cards: a slow zoom and a caption that rises on hover */
@@ -744,7 +751,7 @@ html[data-nav-theme="dark"] .site-header .menu-toggle span {
 }
 .bl-stage {
   position: relative;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: var(--bl-ground);
   display: flex;
@@ -910,7 +917,7 @@ html[data-nav-theme="dark"] .site-header .menu-toggle span {
 .st-measure { max-width: 34rem; }
 .st-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--st-brass);
@@ -1103,7 +1110,7 @@ html[data-nav-theme="dark"] .site-header .menu-toggle span {
 .gal-tile:hover .gal-shade, .gal-tile:focus-within .gal-shade { opacity: 1; }
 .gal-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 0.85rem 0.9rem; pointer-events: none; font-size: 0.78rem; letter-spacing: 0.02em; color: var(--g-stone); opacity: 0; transform: translateY(6px); transition: opacity 0.35s ease, transform 0.35s ease; }
 .gal-tile:hover .gal-cap, .gal-tile:focus-within .gal-cap { opacity: 1; transform: none; }
-.gal-cap .al { color: var(--g-brass); text-transform: uppercase; letter-spacing: 0.18em; font-family: var(--font-mono); font-size: 0.6rem; display: block; margin-bottom: 0.2rem; }
+.gal-cap .al { color: var(--g-brass); text-transform: uppercase; letter-spacing: 0.16em; font-family: var(--font-mono); font-size: 0.68rem; display: block; margin-bottom: 0.2rem; }
 .gal-empty { text-align: center; padding: 5rem 1rem; color: var(--g-stone-faint); }
 .gal-empty .big { font-family: var(--font-display); font-size: 1.6rem; color: var(--g-stone-dim); margin-bottom: 0.5rem; }
 
@@ -1116,7 +1123,7 @@ html[data-nav-theme="dark"] .site-header .menu-toggle span {
 .gal-lb.on .gal-chrome { pointer-events: auto; }
 .gal-chrome > * { pointer-events: auto; }
 .gal-meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.2rem var(--g-pad) 1.4rem; display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; background: linear-gradient(to top, rgba(9, 7, 6, 0.9), transparent); pointer-events: none; }
-.gal-meta .al { font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--g-brass); }
+.gal-meta .al { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--g-brass); }
 .gal-meta .alt { font-family: var(--font-display); font-size: 1.05rem; max-width: 44ch; margin-top: 0.25rem; color: var(--g-stone); }
 .gal-meta .count { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; color: var(--g-stone-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .gal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 3.4rem; height: 3.4rem; border-radius: 50%; border: 1px solid var(--g-rule-2); display: grid; place-items: center; background: rgba(15, 12, 10, 0.6); backdrop-filter: blur(8px); }

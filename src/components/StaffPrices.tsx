@@ -88,7 +88,7 @@ export function StaffPrices({ code }: { code: string }) {
           maxLength={24}
           className={cn("w-[112px] rounded-[8px] border px-3 py-[8px] text-right font-mono text-[13px] outline-none focus:border-gold-deep", on ? "border-gold bg-gold/[0.1] text-navy" : "border-navy/[0.14] bg-white text-gold-ink")}
         />
-        <button type="button" onClick={() => setPrice(list, k, printed, "")} disabled={!on} title={`Printed: ${printed}`} className="w-[58px] font-mono text-[8.5px] tracking-[0.14em] text-faint disabled:invisible hover:text-navy">PRINTED</button>
+        <button type="button" onClick={() => setPrice(list, k, printed, "")} disabled={!on} title={`Printed: ${printed}`} className="min-h-[24px] w-[62px] font-mono text-[10px] tracking-[0.12em] text-faint disabled:invisible hover:text-navy">PRINTED</button>
       </span>
     );
   };
@@ -124,7 +124,7 @@ export function StaffPrices({ code }: { code: string }) {
           </button>
         ))}
         <div className="flex-1" />
-        <p className="font-mono text-[9.5px] tracking-[0.18em] text-gold-ink">{changed ? `${changed} CHANGED FROM PRINTED` : "ALL PRICES AS PRINTED"}</p>
+        <p className="font-mono text-[10.5px] tracking-[0.18em] text-gold-ink">{changed ? `${changed} CHANGED FROM PRINTED` : "ALL PRICES AS PRINTED"}</p>
         <button type="button" onClick={save} disabled={!dirty || busy} className="btn btn-navy px-[22px] py-[12px] text-[11px] disabled:opacity-40">{busy ? "Saving…" : "Save"}</button>
       </div>
       {error && <p role="alert" className="mb-4 text-[13px] text-brick">{error}</p>}
@@ -138,7 +138,7 @@ export function StaffPrices({ code }: { code: string }) {
         <div className="overflow-x-auto rounded-[12px] border border-navy/10 bg-white">
           <table className="w-full min-w-[760px] border-collapse text-[13px]">
             <thead>
-              <tr className="font-mono text-[9px] tracking-[0.14em] text-gold-ink">
+              <tr className="font-mono text-[10.5px] tracking-[0.14em] text-gold-ink">
                 <th scope="col" className="px-5 py-[12px] text-left font-normal">SPIRIT</th>
                 {COLS.map(([, label]) => <th key={label} scope="col" className="px-2 py-[12px] text-right font-normal">{label}</th>)}
               </tr>

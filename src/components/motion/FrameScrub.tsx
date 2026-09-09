@@ -174,7 +174,7 @@ export function FrameScrub({
         aria-hidden={progress >= 1}
       >
         <span className="flex items-center gap-3 rounded-full bg-navy-deep/70 px-4 py-2 backdrop-blur-sm">
-          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-gold-light">{loadingLabel}</span>
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-gold-light">{loadingLabel}</span>
           <span className="block h-px w-16 overflow-hidden bg-cream-bright/25">
             <span className="block h-full bg-gold transition-[width] duration-300" style={{ width: `${Math.round(progress * 100)}%` }} />
           </span>

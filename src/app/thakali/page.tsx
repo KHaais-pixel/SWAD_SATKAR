@@ -33,9 +33,9 @@ export default async function ThakaliPage() {
         {THAKALI.map((c) => (
           <div key={c.id} id={c.id} className="mb-[clamp(38px,5vw,66px)] scroll-mt-[150px]">
             <div className="mb-6 flex items-center gap-4">
-              <h2 className="display whitespace-nowrap text-[clamp(21px,3vw,31px)] text-navy">{c.cat}</h2>
+              <h2 className="display text-[clamp(21px,3vw,31px)] text-navy sm:whitespace-nowrap">{c.cat}</h2>
               <span aria-hidden className="h-px flex-1 bg-[linear-gradient(90deg,rgba(201,162,74,.7),rgba(201,162,74,0))]" />
-              <span className="font-mono text-[9.5px] tracking-[0.2em] text-gold-ink">{c.items.length} ITEMS</span>
+              <span className="font-mono text-[10.5px] tracking-[0.2em] text-gold-ink">{c.items.length} ITEMS</span>
             </div>
             <ul className="grid grid-cols-[repeat(auto-fill,minmax(330px,1fr))] gap-x-10 gap-y-[2px]">
               {c.items.map((i) => (

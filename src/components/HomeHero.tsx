@@ -41,7 +41,7 @@ export function HomeHero() {
 
   return (
     <div className="hero-stage">
-      <section ref={section} className="relative h-[100vh] min-h-[560px] overflow-hidden bg-navy-deep" aria-labelledby="hero-title">
+      <section ref={section} className="relative h-[100svh] min-h-[560px] overflow-hidden bg-navy-deep" aria-labelledby="hero-title">
         <div className="absolute inset-0 [animation:ssZoom_1.9s_cubic-bezier(.2,.8,.2,1)_both]">
           <div ref={img} className="absolute inset-0 will-change-transform">
             <Image src={photos.exterior.src} alt="" fill priority sizes="100vw" className="object-cover object-[center_45%]" />
@@ -92,7 +92,7 @@ export function HomeHero() {
         </div>
 
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[26px] flex flex-col items-center gap-[10px] [animation:ssIn_1.4s_ease_2.1s_both]">
-          <span className="font-mono text-[9px] tracking-[0.32em] text-cream-bright/70">SCROLL TO EXPLORE</span>
+          <span className="font-mono text-[10.5px] tracking-[0.32em] text-cream-bright/70">SCROLL TO EXPLORE</span>
           <span className="h-[34px] w-px bg-[linear-gradient(180deg,rgba(201,162,74,.9),transparent)] [animation:ssBob_2.6s_ease-in-out_infinite]" />
         </div>
       </section>

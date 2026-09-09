@@ -19,7 +19,7 @@ export default async function ThaiPage() {
         {THAI.map((c) => (
           <div key={c.id} className="mb-[clamp(36px,5vw,62px)]">
             <div className="mb-[22px] flex items-center gap-4">
-              <h2 className="display whitespace-nowrap text-[clamp(21px,3vw,31px)] text-navy">{c.cat}</h2>
+              <h2 className="display text-[clamp(21px,3vw,31px)] text-navy sm:whitespace-nowrap">{c.cat}</h2>
               <span aria-hidden className="h-px flex-1 bg-[linear-gradient(90deg,rgba(201,162,74,.7),rgba(201,162,74,0))]" />
             </div>
             <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[14px]">

@@ -19,7 +19,7 @@ export default function ContactPage() {
           {contactCards.map((c) => (
             <li key={c.k} data-step className="lift-card rounded-xl border border-navy/[0.12] bg-white px-6 py-[26px]">
               <p className="mono-tag mb-3 text-gold-ink">{c.k}</p>
-              <p className="text-[16px] font-medium leading-[1.6] text-ink">{"href" in c && c.href ? <a href={c.href} className="text-ink hover:text-gold-ink">{c.v}</a> : c.v}</p>
+              <p className="text-[16px] font-medium leading-[1.6] text-ink">{"href" in c && c.href ? <a href={c.href} className="tap text-ink hover:text-gold-ink">{c.v}</a> : c.v}</p>
               <p className="mt-2 text-[13px] leading-[1.6] text-muted">{c.note}</p>
             </li>
           ))}

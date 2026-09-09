@@ -92,7 +92,7 @@ export function MenuFlip() {
 
   return (
     <section ref={section} id="menu-book" data-scene data-number="07" data-title="THE MENU" data-bg="#fbf7ee" className="relative" aria-label="The printed menu">
-      <div className="wrap-wide flex min-h-[100vh] flex-col justify-center gap-8 py-[clamp(40px,6vw,80px)] md:grid md:grid-cols-12 md:items-center md:gap-[clamp(20px,3vw,44px)]">
+      <div className="wrap-wide flex min-h-[100svh] flex-col justify-center gap-8 py-[clamp(40px,6vw,80px)] md:grid md:grid-cols-12 md:items-center md:gap-[clamp(20px,3vw,44px)]">
         <div className="md:col-span-4">
           <p data-step={1} className="eyebrow mb-4 text-gold-ink">07 — The Menu</p>
           <AnimatedHeading as="h2" lines={["THE PRINTED", "MENU."]} className="display text-[clamp(28px,4.4vw,52px)] leading-[1.06] text-navy" />
@@ -104,7 +104,7 @@ export function MenuFlip() {
               <span className="link-text">Read the full menu</span> <span className="arrow" aria-hidden>→</span>
             </Link>
           </p>
-          <p ref={cue} data-step={5} className="mt-8 inline-flex items-center gap-3 font-mono text-[9.5px] tracking-[0.3em] text-gold-ink motion-reduce:hidden">
+          <p ref={cue} data-step={5} className="mt-8 inline-flex items-center gap-3 font-mono text-[10.5px] tracking-[0.3em] text-gold-ink motion-reduce:hidden">
             <span aria-hidden className="block h-px w-8 bg-gold" />SCROLL TO TURN
           </p>
         </div>

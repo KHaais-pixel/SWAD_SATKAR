@@ -92,7 +92,7 @@ function Reservations() {
       <dl className="mb-6 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-[14px]">
         {stats.map(([k, v]) => (
           <div key={k} className="rounded-[10px] border border-navy/10 bg-white px-5 py-[18px]">
-            <dt className="font-mono text-[9px] tracking-[0.22em] text-gold-ink">{k}</dt>
+            <dt className="font-mono text-[10.5px] tracking-[0.22em] text-gold-ink">{k}</dt>
             <dd className="display m-0 mt-2 text-[30px] leading-none text-navy">{v}</dd>
           </div>
         ))}
@@ -118,28 +118,28 @@ function Reservations() {
             <li key={r.id}>
               <article className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] items-start gap-[18px] rounded-xl border border-navy/[0.12] bg-white px-[22px] py-5">
                 <div>
-                  <p className="font-mono text-[9.5px] tracking-[0.2em] text-gold-ink">{r.ref}</p>
+                  <p className="font-mono text-[10.5px] tracking-[0.2em] text-gold-ink">{r.ref}</p>
                   <h3 className="display mt-[7px] text-[20px] font-normal text-navy">{r.name}</h3>
                   <p className="mt-[5px] text-[13.5px] text-slate-light">{r.phone || "—"}</p>
                   <p className="mt-[3px] text-[13px] text-muted">{r.email || "No email given"}</p>
                 </div>
                 <div>
-                  <p className="font-mono text-[9.5px] tracking-[0.2em] text-gold-ink">WHEN</p>
+                  <p className="font-mono text-[10.5px] tracking-[0.2em] text-gold-ink">WHEN</p>
                   <p className="mt-[7px] text-[15px] font-medium text-ink">{fmtDate(r.date)} · {r.time}</p>
                   <p className="mt-[5px] text-[13.5px] text-slate-light">{r.guests} · {r.area}</p>
                 </div>
                 <div>
-                  <p className="font-mono text-[9.5px] tracking-[0.2em] text-gold-ink">REQUEST</p>
+                  <p className="font-mono text-[10.5px] tracking-[0.2em] text-gold-ink">REQUEST</p>
                   <p className="mt-[7px] text-[13.5px] leading-[1.6] text-slate">{r.note || "No special request"}</p>
                   <p className="mt-[7px] text-[11.5px] text-faint">Received {new Date(r.created).toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
                 </div>
                 <div className="flex flex-col items-start gap-[10px]">
-                  <span className={cn("rounded-[6px] px-[11px] py-[7px] font-mono text-[9.5px] uppercase tracking-[0.16em]", BADGE[r.status])}>{r.status}</span>
+                  <span className={cn("rounded-[6px] px-[11px] py-[7px] font-mono text-[10.5px] uppercase tracking-[0.16em]", BADGE[r.status])}>{r.status}</span>
                   <div className="flex flex-wrap gap-[6px]">
-                    <button type="button" onClick={() => status(r.id, "confirmed")} className="rounded-[6px] bg-navy px-3 py-[9px] font-mono text-[9.5px] tracking-[0.14em] text-parchment">CONFIRM</button>
-                    <button type="button" onClick={() => status(r.id, "seated")} className="rounded-[6px] border border-navy/25 bg-white px-3 py-[9px] font-mono text-[9.5px] tracking-[0.14em] text-navy">SEATED</button>
-                    <button type="button" onClick={() => status(r.id, "declined")} className="rounded-[6px] border border-brick/35 bg-white px-3 py-[9px] font-mono text-[9.5px] tracking-[0.14em] text-brick">DECLINE</button>
-                    <button type="button" onClick={() => remove(r.id)} className="rounded-[6px] border border-navy/[0.12] bg-transparent px-3 py-[9px] font-mono text-[9.5px] tracking-[0.14em] text-slate-light">DELETE</button>
+                    <button type="button" onClick={() => status(r.id, "confirmed")} className="rounded-[6px] bg-navy px-3 py-[9px] font-mono text-[10.5px] tracking-[0.14em] text-parchment">CONFIRM</button>
+                    <button type="button" onClick={() => status(r.id, "seated")} className="rounded-[6px] border border-navy/25 bg-white px-3 py-[9px] font-mono text-[10.5px] tracking-[0.14em] text-navy">SEATED</button>
+                    <button type="button" onClick={() => status(r.id, "declined")} className="rounded-[6px] border border-brick/35 bg-white px-3 py-[9px] font-mono text-[10.5px] tracking-[0.14em] text-brick">DECLINE</button>
+                    <button type="button" onClick={() => remove(r.id)} className="rounded-[6px] border border-navy/[0.12] bg-transparent px-3 py-[9px] font-mono text-[10.5px] tracking-[0.14em] text-slate-light">DELETE</button>
                   </div>
                 </div>
               </article>

@@ -81,7 +81,7 @@ export function ThaliAssembly() {
 
   return (
     <section ref={section} id="experience" data-scene data-number="06" data-title="THE EXPERIENCE" data-bg="#eff4fa" className="relative border-y border-navy/[0.08]" aria-label="The experience: the Thakali plate, served step by step">
-      <div className="wrap-wide flex min-h-[100vh] flex-col justify-center gap-8 py-[clamp(40px,6vw,80px)] md:grid md:grid-cols-12 md:items-center md:gap-[clamp(20px,3vw,40px)]">
+      <div className="wrap-wide flex min-h-[100svh] flex-col justify-center gap-8 py-[clamp(40px,6vw,80px)] md:grid md:grid-cols-12 md:items-center md:gap-[clamp(20px,3vw,40px)]">
         <div className="relative md:col-span-5">
           <p data-step={1} className="eyebrow mb-4 text-gold-ink">06 — The Experience</p>
           <div ref={first}>
@@ -91,7 +91,7 @@ export function ThaliAssembly() {
           <div ref={last} className="absolute left-0 top-[calc(1.6rem+10px)] opacity-0 motion-reduce:static motion-reduce:mt-6 motion-reduce:opacity-100" aria-hidden>
             <p className="accent-italic text-[clamp(28px,4.4vw,54px)] font-semibold leading-[1.08] text-gold-ink">Tradition,<br />served step by step.</p>
           </div>
-          <p ref={cue} data-step={4} className="mt-8 inline-flex items-center gap-3 font-mono text-[9.5px] tracking-[0.3em] text-gold-ink motion-reduce:hidden">
+          <p ref={cue} data-step={4} className="mt-8 inline-flex items-center gap-3 font-mono text-[10.5px] tracking-[0.3em] text-gold-ink motion-reduce:hidden">
             <span aria-hidden className="block h-px w-8 bg-gold" />SCROLL TO SERVE
           </p>
         </div>

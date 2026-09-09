@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-scroll-behavior="smooth" className={cn(bodoni.variable, cormorant.variable, karla.variable, spaceMono.variable)}>
       <body>
         <Header />
-        <main id="main" className="min-h-[100vh] overflow-x-clip bg-cream">{children}</main>
+        <main id="main" className="min-h-[100svh] overflow-x-clip bg-cream">{children}</main>
         <Footer />
         <MotionRoot />
         <JsonLd />

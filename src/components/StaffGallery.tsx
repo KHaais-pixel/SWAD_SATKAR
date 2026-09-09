@@ -122,7 +122,7 @@ export function StaffGallery({ code }: { code: string }) {
             {/* the first file straight from the disk, before it is sent */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {preview && <img src={preview} alt="" className="block max-h-[200px] w-full object-cover" />}
-            <p className="px-3 py-2 font-mono text-[9px] tracking-[0.18em] text-gold-ink">{files.length === 1 ? files[0].name : `${files.length} PHOTOGRAPHS CHOSEN`}</p>
+            <p className="px-3 py-2 font-mono text-[10.5px] tracking-[0.18em] text-gold-ink">{files.length === 1 ? files[0].name : `${files.length} PHOTOGRAPHS CHOSEN`}</p>
           </div>
         )}
 
@@ -140,7 +140,7 @@ export function StaffGallery({ code }: { code: string }) {
       <section aria-label="Photographs in the gallery">
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-4">
           <h2 className="display text-[22px] text-navy">On the gallery page</h2>
-          <p className="font-mono text-[9.5px] tracking-[0.2em] text-gold-ink">{items?.length ?? "…"} PHOTOGRAPHS{hidden ? ` · ${hidden} PUT AWAY` : ""}</p>
+          <p className="font-mono text-[10.5px] tracking-[0.2em] text-gold-ink">{items?.length ?? "…"} PHOTOGRAPHS{hidden ? ` · ${hidden} PUT AWAY` : ""}</p>
         </div>
         <p className="mb-4 text-[13px] leading-[1.6] text-muted">Delete takes an uploaded photograph off the website for good. The {house.length} house photographs are put away instead, and come back together.</p>
         {items === null ? (
@@ -155,11 +155,11 @@ export function StaffGallery({ code }: { code: string }) {
                     <Image src={g.src} alt={g.alt} fill sizes="200px" className="object-cover" />
                   </div>
                   <div className="px-3 py-[10px]">
-                    <p className="font-mono text-[9px] tracking-[0.18em] text-gold-ink">{g.album || "Untitled"}</p>
+                    <p className="font-mono text-[10.5px] tracking-[0.18em] text-gold-ink">{g.album || "Untitled"}</p>
                     <p className="mt-1 truncate text-[12px] text-slate">{g.note || g.alt}</p>
                     <div className="mt-2 flex items-center justify-between gap-2">
-                      <span className="font-mono text-[8.5px] tracking-[0.16em] text-faint">{g.id ? "UPLOADED" : "HOUSE"}</span>
-                      <button type="button" onClick={() => remove(g)} aria-label={asking ? `Confirm: ${g.id ? "delete" : "put away"} ${g.alt}` : `${g.id ? "Delete" : "Put away"} ${g.alt}`} className={cn("rounded-[6px] border px-3 py-[7px] font-mono text-[9px] tracking-[0.14em]", asking ? "border-brick bg-brick text-cream-bright" : "border-brick/35 bg-white text-brick")}>
+                      <span className="font-mono text-[10px] tracking-[0.14em] text-faint">{g.id ? "UPLOADED" : "HOUSE"}</span>
+                      <button type="button" onClick={() => remove(g)} aria-label={asking ? `Confirm: ${g.id ? "delete" : "put away"} ${g.alt}` : `${g.id ? "Delete" : "Put away"} ${g.alt}`} className={cn("rounded-[6px] border px-3 py-[7px] font-mono text-[10.5px] tracking-[0.14em]", asking ? "border-brick bg-brick text-cream-bright" : "border-brick/35 bg-white text-brick")}>
                         {asking ? "SURE?" : g.id ? "DELETE" : "PUT AWAY"}
                       </button>
                     </div>
