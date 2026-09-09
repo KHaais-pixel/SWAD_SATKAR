@@ -1,0 +1,15 @@
+import { chromium } from "playwright";
+const base = process.argv[2] || "http://localhost:3210";
+const b = await chromium.launch();
+const p = await (await b.newContext({ viewport: { width: 1440, height: 950 } })).newPage();
+await p.goto(base + "/admin", { waitUntil: "networkidle", timeout: 240000 });
+await p.waitForTimeout(2500);
+await p.screenshot({ path: "shots/admin-01-reservations.png" });
+await p.getByRole("tab", { name: "Service" }).click();
+await p.waitForTimeout(1200);
+await p.screenshot({ path: "shots/admin-02-service.png" });
+await p.getByRole("tab", { name: "Menu" }).click();
+await p.waitForTimeout(1200);
+await p.screenshot({ path: "shots/admin-03-menu.png" });
+console.log("admin shots done");
+await b.close();

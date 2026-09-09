@@ -1,0 +1,13 @@
+import { chromium } from "playwright";
+const base = process.argv[2] || "http://localhost:3210";
+const b = await chromium.launch();
+const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+p.setDefaultTimeout(180000);
+await p.goto(base, { waitUntil: "domcontentloaded", timeout: 300000 });
+await p.waitForTimeout(6000);
+const book = p.locator('[aria-roledescription="menu book"]');
+await book.scrollIntoViewIfNeeded({ timeout: 120000 });
+await p.waitForTimeout(3000);
+await p.screenshot({ path: "shots/blue-06-book.png" });
+console.log("book cover captured");
+await b.close();

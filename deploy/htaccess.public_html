@@ -1,0 +1,9 @@
+# public_html/.htaccess for swadsatkar.com — hands every request to the Node app.
+# The three Passenger lines are what cPanel's "Setup Node.js App" writes; paths
+# assume the app lives at ~/swadsatkar-app with a Node 22 environment named the same.
+PassengerAppRoot "/home1/__USER__/swadsatkar-app"
+PassengerBaseURI "/"
+PassengerNodejs "/home1/__USER__/nodevenv/swadsatkar-app/22/bin/node"
+PassengerAppType node
+PassengerStartupFile app.js
+PassengerAppEnv production

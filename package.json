@@ -1,0 +1,49 @@
+{
+  "name": "swad-satkar",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "placeholders": "node scripts/generate-placeholders.mjs",
+    "subset-fonts": "node scripts/subset-fonts.mjs",
+    "logo": "node scripts/build-logo.mjs",
+    "thali-frames": "node scripts/build-thali-frames.mjs",
+    "dishes": "node scripts/build-dishes.mjs",
+    "hero-frames": "node scripts/build-hero-frames.mjs",
+    "lounge": "node scripts/build-lounge.mjs",
+    "lounge-depth": "node scripts/lounge-depth.mjs",
+    "thali-layers": "node scripts/build-thali-layers.mjs",
+    "thali-film": "node scripts/build-thali-film.mjs",
+    "menu-book": "node scripts/build-menu-book.mjs"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "framer-motion": "^11.15.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "next": "^15.5.25",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "sharp": "^0.35.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
+    "eslint": "^9",
+    "eslint-config-next": "^15.5.25",
+    "playwright": "^1.49.1",
+    "subset-font": "^2.7.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5"
+  }
+}
