@@ -270,6 +270,7 @@
    place; the hit area grows around it, which is what a thumb actually needs. */
 @utility tap {
   display: inline-block;
+  min-width: 24px;
   padding-block: max(0px, calc((24px - 1em * 1.5) / 2));
 }
 

@@ -36,7 +36,7 @@ export function SectionProgress() {
     <nav aria-label="Sections" className="fixed right-[clamp(12px,1.6vw,24px)] top-1/2 z-50 hidden -translate-y-1/2 items-center gap-3 min-[1100px]:flex">
       {current && (
         <span aria-hidden className="flex items-center gap-2 [writing-mode:vertical-rl]">
-          <span className="whitespace-nowrap font-mono text-[9.5px] tracking-[0.26em] text-gold-ink transition-opacity duration-700">{current.n} — {current.title}</span>
+          <span className="whitespace-nowrap font-mono text-[10.5px] tracking-[0.24em] text-gold-ink transition-opacity duration-700">{current.n} — {current.title}</span>
           <span className="block h-[72px] w-px bg-navy/15">
             <span className="block w-full origin-top bg-gold-deep transition-transform duration-200 ease-linear" style={{ height: "100%", transform: `scaleY(${progress.toFixed(3)})` }} />
           </span>
@@ -52,7 +52,7 @@ export function SectionProgress() {
                 aria-current={isOn ? "true" : undefined}
                 aria-label={`${it.n} ${it.title}`}
                 onClick={(e) => { e.preventDefault(); const el = document.getElementById(it.id); if (!el) return; if (window.__lenis) window.__lenis.scrollTo(el, { offset: -40 }); else el.scrollIntoView({ behavior: "smooth" }); }}
-                className={cn("group flex min-h-6 items-center gap-[8px] py-[4px] font-mono tracking-[0.22em] transition-[color,font-size] duration-500", isOn ? "text-[11px] text-gold-ink" : "text-[9.5px] text-navy/70 hover:text-navy")}
+                className={cn("group flex min-h-6 items-center gap-[8px] py-[4px] font-mono tracking-[0.22em] transition-[color,font-size] duration-500", isOn ? "text-[11.5px] text-gold-ink" : "text-[10.5px] text-navy/70 hover:text-navy")}
               >
                 <span>{it.n}</span>
                 <span className={cn("block h-px transition-[width,background-color] duration-500", isOn ? "w-5 bg-gold-deep" : "w-2 bg-navy/30 group-hover:bg-navy")} />

@@ -79,7 +79,7 @@ export function Footer() {
       <div className="border-t border-cream-bright/[0.12]">
         <div className="wrap-wide flex flex-wrap items-center justify-between gap-3 py-5">
           <p className="font-mono text-[10.5px] tracking-[0.18em] text-cream-bright/[0.62]">© SWAD SATKAR · ASIAN MIX CUISINE</p>
-          <Link href="/staff" className="font-mono text-[10.5px] tracking-[0.18em] text-cream-bright/[0.62] hover:text-gold-light">
+          <Link href="/staff" className="tap font-mono text-[10.5px] tracking-[0.18em] text-cream-bright/[0.62] hover:text-gold-light">
             STAFF PANEL →
           </Link>
         </div>

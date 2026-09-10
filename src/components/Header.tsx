@@ -115,7 +115,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="site-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="menu-toggle flex h-[46px] w-[46px] flex-col items-center justify-center gap-[5px] rounded-full border border-navy/25 bg-transparent transition-colors duration-[450ms] min-[1080px]:hidden"
+            className="menu-toggle flex h-[46px] w-[46px] flex-none flex-col items-center justify-center gap-[5px] rounded-full border border-navy/25 bg-transparent transition-colors duration-[450ms] min-[1080px]:hidden"
           >
             <span className={cn("block h-[1.5px] w-5 bg-navy transition-transform", open && "translate-y-[6.5px] rotate-45")} />
             <span className={cn("block h-[1.5px] w-5 bg-navy transition-opacity", open && "opacity-0")} />

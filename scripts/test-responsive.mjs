@@ -24,14 +24,20 @@ const audit = (p) => p.evaluate(() => {
     if (cs.display === "none" || cs.visibility === "hidden" || +cs.opacity === 0) continue;
     const r = el.getBoundingClientRect();
     if (!r.width && !r.height) continue;
-    // something reaching past the right edge, ignoring what is deliberately
-    // moved off screen by a transform (the reels and the marquee)
-    const moved = cs.transform !== "none" || el.closest("[style*='translate']");
-    if (!moved && r.right > vw + 1.5 && r.width <= vw * 1.5 && out.wide.length < 6) {
-      if (!el.closest(".gal-lb, .st-rtrack, .st-mtrack, .book, .bl-layer, .pin-spacer [style*='transform']")) out.wide.push(`${name(el)} right=${Math.round(r.right)}`);
+    // Something reaching past the right edge — but not what is meant to. A
+    // scroller's contents are wider than its box on purpose, a transformed
+    // ancestor carries its children with it, and a clipping box keeps what it
+    // holds off the page. None of those spill.
+    let sheltered = cs.transform !== "none";
+    for (let a = el.parentElement; a && a !== document.body && !sheltered; a = a.parentElement) {
+      const acs = getComputedStyle(a);
+      if (acs.transform !== "none" || acs.animationName !== "none") sheltered = true;
+      if (/(auto|scroll)/.test(acs.overflowX) || acs.overflowX === "hidden" || acs.overflowX === "clip") sheltered = true;
     }
-    // anything you tap should be big enough to hit
-    const tappable = el.matches("a[href], button, input, select, [role=button], [role=tab]") && !el.closest("[aria-hidden=true]");
+    if (!sheltered && r.right > vw + 1.5 && r.width <= vw * 1.5 && out.wide.length < 6) out.wide.push(`${name(el)} right=${Math.round(r.right)}`);
+    // anything you tap should be big enough to hit; a skip link is 1x1 until
+    // it is focused, which is the point of it
+    const tappable = el.matches("a[href], button, input, select, [role=button], [role=tab]") && !el.closest("[aria-hidden=true]") && !el.classList.contains("sr-only");
     if (tappable && r.width > 0 && (r.width < 24 || r.height < 24) && out.small.length < 6) out.small.push(`${name(el)} ${Math.round(r.width)}x${Math.round(r.height)}`);
     // text nobody can read
     const text = el.children.length === 0 && el.textContent.trim().length > 2;
