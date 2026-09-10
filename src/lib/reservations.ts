@@ -1,9 +1,11 @@
 /**
- * Reservation requests, kept in this browser's storage. The book page writes
- * them, the staff panel reads and updates them. A backend can replace this
- * module without touching either page.
+ * The shape of a reservation request and the helpers both ends share.
+ *
+ * Requests are stored on the server (content/reservations.json, through
+ * /api/reservations): a booking made on a guest's telephone has to reach the
+ * restaurant, which is exactly what keeping them in the browser's own storage
+ * could never do.
  */
-export const KEY = "swadsatkar.reservations";
 export type Status = "pending" | "confirmed" | "seated" | "declined";
 export interface Reservation {
   id: string;
@@ -20,18 +22,6 @@ export interface Reservation {
   created: string;
 }
 
-export function load(): Reservation[] {
-  try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
-export function save(list: Reservation[]) {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(list));
-  } catch {}
-}
 export function newReservation(f: Omit<Reservation, "id" | "ref" | "status" | "created">): Reservation {
   return {
     ...f,

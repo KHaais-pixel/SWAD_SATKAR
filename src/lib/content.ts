@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { gallery as builtIn, type GalleryItem } from "@/data/site";
 import { BAR_LISTS, SMOKING, SPIRITS, THAI, THAKALI, type BarList, type Category, type Spirit } from "@/data/menus";
+import type { Reservation } from "@/lib/reservations";
 
 /**
  * What the staff panel can change, kept as two small JSON files in
@@ -23,6 +24,7 @@ export const CONTENT_DIR = path.join(process.cwd(), "content");
 export const UPLOAD_DIR = path.join(CONTENT_DIR, "uploads", "gallery");
 const GALLERY_FILE = path.join(CONTENT_DIR, "gallery.json");
 const PRICES_FILE = path.join(CONTENT_DIR, "prices.json");
+const RESERVATIONS_FILE = path.join(CONTENT_DIR, "reservations.json");
 
 export type { GalleryItem };
 export interface Uploaded extends GalleryItem { id: string; created: string }
@@ -45,12 +47,13 @@ async function readJson<T>(file: string, fallback: T): Promise<T> {
     return fallback;
   }
 }
-async function writeJson(file: string, data: unknown) {
+async function writeJson(file: string, data: unknown, mode?: number) {
   await fs.mkdir(path.dirname(file), { recursive: true });
   // written beside the file and moved into place, so a reader in another
   // request never catches it half-written
   const tmp = `${file}.${process.pid}.${Date.now()}.tmp`;
-  await fs.writeFile(tmp, JSON.stringify(data, null, 2) + "\n");
+  await fs.writeFile(tmp, JSON.stringify(data, null, 2) + "\n", mode ? { mode } : undefined);
+  if (mode) await fs.chmod(tmp, mode);
   await fs.rename(tmp, file);
 }
 
@@ -75,10 +78,35 @@ export async function writeHidden(hidden: string[]) {
   await writeJson(GALLERY_FILE, { ...(await readGalleryFile()), hidden: [...new Set(hidden)] });
 }
 export const isHouse = (src: string) => builtIn.some((b) => b.src === src);
+/**
+ * Uploads whose file is actually on disk. gallery.json and content/uploads/
+ * can drift apart — the photographs are not in the repository, so a fresh
+ * deployment starts with an empty upload directory and a manifest that still
+ * lists every photograph the staff had added. Showing those would put broken
+ * images on the page; skipping them here keeps the entry, so a photograph
+ * restored to the directory reappears with its caption intact.
+ */
+async function onDisk(items: Uploaded[]): Promise<Uploaded[]> {
+  const here = await Promise.all(
+    items.map(async (i) => {
+      const name = i.src.startsWith("/uploads/gallery/") ? path.basename(i.src) : null;
+      if (!name) return true; // not an upload: a house photograph, served from public/
+      try {
+        await fs.access(path.join(UPLOAD_DIR, name));
+        return true;
+      } catch {
+        return false;
+      }
+    }),
+  );
+  return items.filter((_, n) => here[n]);
+}
+
 /** The gallery as visitors see it: the house photographs the staff have kept, then whatever they have added, oldest first. */
 export async function getGallery(): Promise<GalleryItem[]> {
   const { items, hidden } = await readGalleryFile();
-  return [...builtIn.filter((b) => !hidden.includes(b.src)), ...items.map((i) => ({ ...i, album: i.album || "The House" }))];
+  const present = await onDisk(items);
+  return [...builtIn.filter((b) => !hidden.includes(b.src)), ...present.map((i) => ({ ...i, album: i.album || "The House" }))];
 }
 
 /* the prices */
@@ -120,3 +148,24 @@ export async function getMenus() {
 
 /** The pages that show any of this, for revalidation after a change. */
 export const CONTENT_PATHS = ["/", "/gallery", "/thakali", "/thai", "/bar"];
+
+/* the reservations */
+
+/**
+ * Reservation requests, on the server's disk rather than in whichever browser
+ * happened to make them. They carry a guest's name, telephone number and
+ * email address, so the file is written 0600 — readable by the application's
+ * own account and nobody else's on a shared host.
+ */
+export async function readReservations(): Promise<Reservation[]> {
+  const r = await readJson<{ items: Reservation[] }>(RESERVATIONS_FILE, { items: [] });
+  return Array.isArray(r.items) ? r.items : [];
+}
+export async function writeReservations(items: Reservation[]) {
+  await writeJson(RESERVATIONS_FILE, { items }, 0o600);
+}
+/** Newest first, as the staff panel lists them. */
+export async function addReservation(r: Reservation): Promise<Reservation> {
+  await writeReservations([r, ...(await readReservations())]);
+  return r;
+}

@@ -18,6 +18,8 @@ shots/
 
 # the staff's own uploads and edits live on the server, not in the repo;
 # the two JSON files are committed as the starting state
+# guests' names and telephone numbers — the server's copy is the only one
+content/reservations.json
 content/uploads/*
 !content/uploads/.gitkeep
 

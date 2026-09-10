@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, type FormEvent } from "react";
 import { site } from "@/data/site";
-import { fmtDate, load, save, toCsv, type Reservation, type Status } from "@/lib/reservations";
+import { fmtDate, toCsv, type Reservation, type Status } from "@/lib/reservations";
 import { cn } from "@/lib/cn";
 import { StaffGallery } from "@/components/StaffGallery";
 import { StaffPrices } from "@/components/StaffPrices";
@@ -60,21 +60,55 @@ export function StaffPanel() {
           </button>
         ))}
       </div>
-      {tab === "reservations" && <Reservations />}
+      {tab === "reservations" && <Reservations code={granted} />}
       {tab === "gallery" && <StaffGallery code={granted} />}
       {tab === "prices" && <StaffPrices code={granted} />}
     </section>
   );
 }
 
-/** Reservation requests, in this browser: the numbers, the list, the buttons. */
-function Reservations() {
+/**
+ * Reservation requests, read from the server rather than from this browser:
+ * a request made on a guest's telephone has to be visible to whoever is on
+ * the floor here.
+ */
+function Reservations({ code }: { code: string }) {
   const [res, setRes] = useState<Reservation[]>([]);
   const [filter, setFilter] = useState<Status | "all">("all");
-  useEffect(() => setRes(load()), []);
-  const persist = (list: Reservation[]) => { save(list); setRes(list); };
-  const status = (id: string, s: Status) => persist(res.map((r) => (r.id === id ? { ...r, status: s } : r)));
-  const remove = (id: string) => persist(res.filter((r) => r.id !== id));
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const call = async (init: RequestInit & { url?: string }) => {
+    setError("");
+    try {
+      const r = await fetch(init.url || "/api/reservations", { ...init, headers: { ...init.headers, "x-staff-code": code } });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) { setError(d.error || "Could not reach the server"); return null; }
+      return d as { items: Reservation[] };
+    } catch {
+      setError("Could not reach the server");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    let live = true;
+    call({ method: "GET" }).then((d) => { if (live && d) setRes(d.items); });
+    return () => { live = false; };
+    // the passcode is fixed for the life of the panel
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const status = async (id: string, s: Status) => {
+    const d = await call({ method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, status: s }) });
+    if (d) setRes(d.items);
+  };
+  const remove = async (id: string) => {
+    const d = await call({ method: "DELETE", url: `/api/reservations?id=${encodeURIComponent(id)}` });
+    if (d) setRes(d.items);
+  };
   const exportCsv = () => {
     const url = URL.createObjectURL(new Blob([toCsv(res)], { type: "text/csv" }));
     const a = document.createElement("a");
@@ -89,6 +123,9 @@ function Reservations() {
   ] as const;
   return (
     <div>
+      {error && (
+        <p role="alert" className="mb-5 rounded-[10px] border border-[#b3261e]/35 bg-[#b3261e]/[0.06] px-4 py-3 text-[14px] text-[#8c1d18]">{error}</p>
+      )}
       <dl className="mb-6 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-[14px]">
         {stats.map(([k, v]) => (
           <div key={k} className="rounded-[10px] border border-navy/10 bg-white px-5 py-[18px]">
@@ -148,8 +185,10 @@ function Reservations() {
         </ul>
       ) : (
         <div className="rounded-xl border border-dashed border-navy/20 bg-white p-[clamp(36px,6vw,70px)] text-center">
-          <p className="display text-[21px] text-navy">No requests in this view</p>
-          <p className="mt-[10px] text-[14px] text-muted">Submit one from the reservations page to see it appear here.</p>
+          <p className="display text-[21px] text-navy">{loading ? "Reading requests…" : "No requests in this view"}</p>
+          <p className="mt-[10px] text-[14px] text-muted">
+            {loading ? "One moment." : "Submit one from the reservations page to see it appear here."}
+          </p>
         </div>
       )}
     </div>

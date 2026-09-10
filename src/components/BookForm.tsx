@@ -1,7 +1,7 @@
 "use client";
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { AREAS, GUESTS, TIMES, fmtDate, load, newReservation, save, type Reservation } from "@/lib/reservations";
+import { AREAS, GUESTS, TIMES, fmtDate, type Reservation } from "@/lib/reservations";
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <label className="flex flex-col gap-[9px]">
@@ -16,15 +16,38 @@ const EMPTY = { name: "", phone: "", email: "", date: "", time: "7:00 PM", guest
 export function BookForm() {
   const [f, setF] = useState(EMPTY);
   const [done, setDone] = useState<Reservation | null>(null);
+  const [emailed, setEmailed] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const set = (k: keyof typeof EMPTY) => (e: { target: { value: string } }) => setF((s) => ({ ...s, [k]: e.target.value }));
 
-  const submit = (e: FormEvent) => {
+  // the request goes to the restaurant, so the form waits for the server to
+  // have it rather than telling the guest it is done the moment they click
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
+    if (sending) return;
     if (!f.name.trim() || !f.phone.trim() || !f.date) return;
-    const rec = newReservation({ ...f, name: f.name.trim(), phone: f.phone.trim(), email: f.email.trim(), note: f.note.trim() });
-    save([rec, ...load()]);
-    setDone(rec);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...f, name: f.name.trim(), phone: f.phone.trim(), email: f.email.trim(), note: f.note.trim() }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error || "We could not send that just now. Please call us instead.");
+        return;
+      }
+      setDone(data.reservation as Reservation);
+      setEmailed(Boolean(data.emailed));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setError("We could not reach the restaurant just now. Please call us instead.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (done) {
@@ -39,6 +62,11 @@ export function BookForm() {
         <p className="mt-[14px] text-[15.5px] leading-[1.7] text-slate">
           Your table is <strong>not confirmed yet</strong>. Our team reviews requests in the staff panel and will call you back to confirm.
         </p>
+        {emailed && (
+          <p className="mt-[10px] text-[14px] leading-[1.7] text-slate">
+            A confirmation of this request is on its way to <strong>{done.email}</strong>.
+          </p>
+        )}
         <dl className="mx-auto mt-[26px] max-w-[440px] overflow-hidden rounded-[10px] border border-navy/[0.12] text-left">
           {rows.map(([k, v]) => (
             <div key={k} className="flex justify-between gap-[14px] border-b border-navy/[0.08] px-4 py-3 text-[14px] last:border-b-0">
@@ -86,10 +114,15 @@ export function BookForm() {
         <span className="field-label">Special requests</span>
         <textarea value={f.note} onChange={set("note")} rows={4} placeholder="Birthday, seating preference, dietary needs, khaja set for a group…" className="field resize-y leading-[1.6]" />
       </label>
+      {error && (
+        <p role="alert" className="mt-5 rounded-[10px] border border-[#b3261e]/35 bg-[#b3261e]/[0.06] px-4 py-3 text-[14px] leading-[1.6] text-[#8c1d18]">
+          {error}
+        </p>
+      )}
       <div className="mt-[26px] flex flex-wrap items-center justify-between gap-[18px] border-t border-navy/10 pt-6">
         <p className="max-w-[44ch] text-[13px] leading-[1.6] text-muted">Requests are held in the staff panel until a member of our team confirms by phone. No table is booked automatically.</p>
-        <button type="submit" data-cursor="RESERVE" className="btn btn-navy display px-[38px] py-[18px] text-[16px] normal-case tracking-[0.1em]">
-          Book a Table
+        <button type="submit" disabled={sending} data-cursor="RESERVE" className="btn btn-navy display px-[38px] py-[18px] text-[16px] normal-case tracking-[0.1em] disabled:cursor-wait disabled:opacity-60">
+          {sending ? "Sending…" : "Book a Table"}
         </button>
       </div>
     </form>

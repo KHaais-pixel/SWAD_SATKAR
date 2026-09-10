@@ -12,7 +12,7 @@ export default function StaffPage() {
             <p className="mono-tag mb-3 text-gold-light">Staff panel</p>
             <h1 className="display text-[clamp(24px,3.6vw,38px)]">Reservations, Gallery, Prices</h1>
           </div>
-          <p className="max-w-[44ch] text-[13px] leading-[1.6] text-cream-bright/60">Photographs and prices you change here go live on the website. Reservation requests are stored in this browser only until a booking backend is connected.</p>
+          <p className="max-w-[44ch] text-[13px] leading-[1.6] text-cream-bright/60">Photographs and prices you change here go live on the website. Reservation requests arrive from the website and are kept on the server, so every member of staff sees the same list.</p>
         </div>
       </section>
       <StaffPanel />

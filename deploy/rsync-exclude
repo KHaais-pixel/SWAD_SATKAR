@@ -1,6 +1,24 @@
+# Anything listed here is neither sent nor deleted on the server. rsync treats
+# an excluded path as protected, so --delete leaves the server's own copy alone.
+
+# --- the server's own files. Deleting any of these takes the site down. ---
+.env
+next.config.js
+app.js
+stderr.log
+tmp
+content
+
+# --- built or installed on the server, or not its business ---
 node_modules
 node_modules.nosync
 .next.nosync/cache
+.next
+next.config.ts
+tsconfig.json
+eslint.config.mjs
+
+# --- workshop material that never ships ---
 legacy
 shots
 assets
@@ -8,9 +26,8 @@ scripts
 .import-tmp.nosync
 .lounge-tmp.nosync
 .git
+.gitignore
 .DS_Store
 ._*
 deploy
 README.md
-tsconfig.json
-eslint.config.mjs
